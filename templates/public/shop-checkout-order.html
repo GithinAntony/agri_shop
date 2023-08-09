@@ -1,0 +1,94 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+{% include 'includes/hamburger.html'  %}
+{% load mathfilters %}
+<hr >
+<!-- Checkout Section Begin -->
+<section class="checkout spad">
+    <div class="container">
+        <div class="checkout__form">
+            <h4>Order</h4>
+            <form action="" method="post" id="form_1" >
+              {% csrf_token %}
+              {% if messages %}
+              <ul class="messages text-center">
+              {% for message in messages %}
+              <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+              {% endfor %}
+              </ul>
+              {% endif %}
+                <div class="row">
+
+                    <div class="col-lg-8 col-md-6">
+<h1 style="color: skyblue">Your order placed successfully! Thank You for shopping with us! </h1>
+                    </div>
+
+        
+
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- Checkout Section End -->
+<!-- Footer Section Begin -->
+{% include 'includes/footer.html'  %}
+<!-- Footer Section End -->
+{% endblock %}
+{% block custom-js %}
+<script src="{% static 'lib/validate/jquery.validate.min.js' %}"></script>
+<script src="{% static 'lib/validate/additional-methods.min.js' %}"></script>
+<script>
+$(document).ready(function(){
+  $( "#form_1" ).validate({
+   ignore: [],
+    rules: {
+           firstname: {
+            required: true,
+            digits: false,
+            minlength: 2,
+            maxlength: 255
+          },
+          lastname: {
+            required: true,
+            digits: false,
+            minlength: 2,
+            maxlength: 255
+          },
+          mobilenumber: {
+            required: true,
+            digits: true,
+            minlength: 9,
+            maxlength: 10,
+          },
+          email_address: {
+            required: true,
+            email: true,
+            minlength: 8,
+            maxlength: 255
+          },
+          town: {
+            required: true,
+          },
+          state: {
+            required: true,
+          },
+postcode: {
+  required: true,
+    digits: true,
+},
+          address_1: {
+            required: true,
+            minlength: 8,
+            maxlength: 500
+          },
+          address_2: {
+            minlength: 8,
+            maxlength: 500
+          },
+    }
+  });
+});
+</script>
+{% endblock %}

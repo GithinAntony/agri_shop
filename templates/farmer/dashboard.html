@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+{% include 'includes/hamburger.html'  %}
+  <hr >
+    <!-- Contact Form Begin -->
+    <div class="contact-form spad" style="padding-top: 0px !important;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="contact__form__title">
+                        <h2>Farmer Dashboard</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+<b>Welcome Farmer,</b> <br />
+{% if messages %}
+<ul class="messages text-center">
+{% for message in messages %}
+<li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+                </div>
+
+<div class="col-lg-12">
+  <h3><b>Welcome {{ request.session.firstname }} {{ request.session.lastname }}, </b></h3>
+ <p>&nbsp;</p>
+  <dl>
+    <dt>Full Name:</dt>
+    <dd>{{ request.session.firstname }} {{ request.session.lastname }}</dd>
+    <dt>Email:</dt>
+    <dd>{{ request.session.email }}</dd>
+    <dt>Mobile Number:</dt>
+    <dd>{{ request.session.mobilenumber }}</dd>
+  </dl>
+</div>
+
+            </div>
+
+
+        </div>
+    </div>
+    <!-- Contact Form End -->
+        <!-- Footer Section Begin -->
+    {% include 'includes/footer.html'  %}
+        <!-- Footer Section End -->
+    {% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+{% include 'includes/hamburger.html'  %}
+  <hr >
+    <!-- Contact Form Begin -->
+    <div class="contact-form spad" style="padding-top: 0px !important;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="contact__form__title">
+                        <h2>User Sign In</h2>
+                    </div>
+                </div>
+            </div>
+
+<div class="checkout__form">
+<form action="" method="post" name="form_1" id="form_1">
+{% csrf_token %}
+{% if messages %}
+<ul class="messages text-center">
+{% for message in messages %}
+<li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                      <div class="checkout__input">
+                          <p>Mobile Number<span>*</span></p>
+                          <input type="text" id="mobilenumber" name="mobilenumber" placeholder="Mobile Number">
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                      <div class="checkout__input">
+                          <p>Password<span>*</span></p>
+                        <input type="password" id="password" name="password" placeholder="Password">
+                      </div>
+                    </div>
+                    <div class="col-lg-12 text-center">
+                        <button type="submit" class="site-btn">SUBMIT</button>
+                    </div>
+                </div>
+</form>
+</div>
+
+        </div>
+    </div>
+    <!-- Contact Form End -->
+
+        <!-- Footer Section Begin -->
+    {% include 'includes/footer.html'  %}
+        <!-- Footer Section End -->
+    {% endblock %}
+    {% block custom-js %}
+    <script src="{% static 'lib/validate/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'lib/validate/additional-methods.min.js' %}"></script>
+    <script>
+    $(document).ready(function(){
+    $( "#form_1" ).validate({
+     ignore: [],
+/*
+     errorPlacement: function(error, element) {
+    error.insertAfter(element.parent());
+    },
+*/
+rules: {
+      mobilenumber: {
+        required: true,
+        digits: true,
+        minlength: 9,
+        maxlength: 10,
+      },
+      password: {
+        required: true,
+        minlength: 5,
+        maxlength: 20,
+      },
+}
+    });
+    });
+    </script>
+    {% endblock %}

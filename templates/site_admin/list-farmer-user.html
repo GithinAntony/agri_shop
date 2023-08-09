@@ -1,0 +1,85 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block custom-style %}
+<link href="{% static 'lib/datatables/datatables.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+{% include 'includes/hamburger.html'  %}
+  <hr >
+    <!-- Contact Form Begin -->
+    <div class="contact-form spad" style="padding-top: 0px !important;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="contact__form__title">
+                        <h2>Farmer User</h2>
+                    </div>
+                </div>
+            </div>
+
+<div class="row">
+<div class="col-lg-12">
+
+<div class="checkout__form">
+<h4>Farmer List</h4>
+  {% if datalist.count > 0 %}
+  <table id="example" class="stripe" style="width:100%; background-color: white; padding: 15px;">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Mobile Number</th>
+                <th>Location</th>
+                <th>Date Added</th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for row in datalist %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ row.firstname }} {{ row.lastname }}</td>
+                <td>{{ row.email }}</td>
+                <td>{{ row.mobilenumber }}</td>
+                <td>{{ row.Location.location }}</td>
+                <td>{{ row.date_added }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+              <th>#</th>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Mobile Number</th>
+              <th>Location</th>
+                <th>Date Added</th>
+            </tr>
+        </tfoot>
+    </table>
+  {% else %}
+  <b>No data added.</b>
+  {% endif %}
+</div>
+
+</div>
+</div>
+
+        </div>
+    </div>
+    <!-- Contact Form End -->
+
+        <!-- Footer Section Begin -->
+    {% include 'includes/footer.html'  %}
+        <!-- Footer Section End -->
+    {% endblock %}
+    {% block custom-js %}
+    <script type="text/javascript" src="{% static 'lib/datatables/datatables.js' %}"></script>
+    <script src="{% static 'lib/validate/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'lib/validate/additional-methods.min.js' %}"></script>
+    <script>
+    $(document).ready(function() {
+        $('#example').DataTable();
+    } );
+    </script>
+    {% endblock %}

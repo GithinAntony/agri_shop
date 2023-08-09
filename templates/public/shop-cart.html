@@ -1,0 +1,93 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+{% include 'includes/hamburger.html'  %}
+{% load mathfilters %}
+<hr >
+<!-- Shoping Cart Section Begin -->
+<section class="shoping-cart spad">
+    <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            {% if messages %}
+            <ul class="messages text-center">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+            <div class="col-lg-12">
+                <div class="shoping__cart__table">
+{% if cart_list.count > 0  %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="shoping__product">Products</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+{% for row in cart_list %}
+                            <tr>
+                                <td class="shoping__cart__item">
+                                    <img src="{{ row.products.product_image }}" alt="" width="50" height="50">
+                                    <h5>{{ row.products.title }}</h5>
+                                </td>
+                                <td class="shoping__cart__price">
+                                    Rs. {{ row.products.price }}
+                                </td>
+                                <td class="shoping__cart__quantity">
+                                    {{ row.quantity }}
+                                </td>
+                                <td class="shoping__cart__total">
+                                    {{ row.products.price|mul:row.quantity }}
+                                </td>
+                                <td class="shoping__cart__item__close">
+                                    <a href="{% url 'public:shop_cart_delete' id=row.unique_id %}"><span class="icon_close"></span></a>
+                                </td>
+                            </tr>
+{% endfor %}
+                        </tbody>
+                    </table>
+{% else %}
+No items added to the cart
+{% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shoping__cart__btns">
+                    <a href="{% url 'public:shop' %}" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+
+            </div>
+            <div class="col-lg-6">
+                <div class="shoping__checkout">
+                    <h5>Cart Total</h5>
+                    <ul>
+                        <li>Subtotal <span>Rs.{{ total_price }}</span></li>
+                        <li>Total <span>Rs.{{ total_price }}</span></li>
+                    </ul>
+                {% if cart_list.count > 0  %}
+                    <a href="{% url 'public:shop_checkout' %}" class="primary-btn">PROCEED TO CHECKOUT</a>
+                 {% else  %}
+                 <button class="primary-btn" style="width: 100%" disabled>PROCEED TO CHECKOUT</button>
+                 {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Shoping Cart Section End -->
+<!-- Footer Section Begin -->
+{% include 'includes/footer.html'  %}
+<!-- Footer Section End -->
+{% endblock %}
